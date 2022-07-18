@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_demo/providers/counter_provider.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -13,7 +15,8 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("You have pushed the button this many time")
+            Text("You have pushed the button this many time: "
+                "${context.watch<CounterProvider>().count}")
           ],
         ),
       ),
@@ -22,29 +25,31 @@ class MyHomePage extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: () {
+              context.read<CounterProvider>().decrement();
             },
-            key: Key('decrement_floatingActionButton'),
+            key: const Key('decrement_floatingActionButton'),
             tooltip: 'decrement',
-            child: const Icon(Icons.remove),
             // used when user long clicks when accessibility is on
+            child: const Icon(Icons.remove),
+
           ),
           const SizedBox(width: 15.0,),
           FloatingActionButton(
             onPressed: () {
+              context.read<CounterProvider>().reset();
             },
-            key: Key('reset_floatingActionButton'),
+            key: const Key('reset_floatingActionButton'),
             tooltip: 'decrement',
             child: const Icon(Icons.exposure_zero),
-            // used when user long clicks when accessibility is on
           ),
           const SizedBox(width: 15.0,),
           FloatingActionButton(
             onPressed: () {
+              context.read<CounterProvider>().increment();
             },
-            key: Key('increment_floatingActionButton'),
+            key: const Key('increment_floatingActionButton'),
             tooltip: 'decrement',
-            child: const Icon(Icons.remove),
-            // used when user long clicks when accessibility is on
+            child: const Icon(Icons.add),
           ),
         ],
       ),
